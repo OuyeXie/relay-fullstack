@@ -1,3 +1,5 @@
+import {test} from './sqlite3';
+
 class User {
   constructor(id, name, username, website) {
     this.id = id;
@@ -43,6 +45,7 @@ function addFeature(name, description, url) {
 
 
 function getUser(id) {
+  test()
   return id === lvarayut.id ? lvarayut : null;
 }
 
