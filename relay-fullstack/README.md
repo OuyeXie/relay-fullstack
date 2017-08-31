@@ -1,3 +1,19 @@
+# Analyzer
+
+## db-migrate
+
+config file -> ./database.json
+
+### Command lines
+
+node_modules/.bin/db-migrate create add-default-table --sql-file  
+
+./node_modules/.bin/db-migrate up 
+
+./node_modules/.bin/db-migrate down
+
+
+# Original Readme from Framework
 <h1 align="center">
   <br>
 	<img width="800" src="https://cloud.githubusercontent.com/assets/4281887/14516854/792107ac-0231-11e6-95dd-86bb2b5197e3.png">
