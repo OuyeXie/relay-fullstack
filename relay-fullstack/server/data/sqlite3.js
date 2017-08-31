@@ -1,7 +1,7 @@
 import sqlite3 from 'sqlite3';
 
-const db = new sqlite3.Database(':memory:');
-db.run('CREATE TABLE lorem (info TEXT)');
+const db = new sqlite3.Database('resource/analyzer.sqlite3');
+// db.run('CREATE TABLE lorem (info TEXT)');
 
 export function test() {
   db.serialize(() => {
