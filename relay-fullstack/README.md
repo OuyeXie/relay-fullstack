@@ -6,11 +6,11 @@ config file -> ./database.json
 
 ### Command lines
 
-node_modules/.bin/db-migrate create add-default-table --sql-file  
+node_modules/.bin/db-migrate create add-default-table --sql-file --config config.json --env sqlite3
 
-./node_modules/.bin/db-migrate up 
+./node_modules/.bin/db-migrate up --config config.json --env sqlite3
 
-./node_modules/.bin/db-migrate down
+./node_modules/.bin/db-migrate down --config config.json --env sqlite3
 
 
 # Original Readme from Framework

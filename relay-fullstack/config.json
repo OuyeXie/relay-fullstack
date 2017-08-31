@@ -1,6 +1,5 @@
 {
-  "defaultEnv": "local",
-  "local": {
+  "sqlite3": {
     "driver": "sqlite3",
     "filename": "resource/analyzer.sqlite3"
   }
