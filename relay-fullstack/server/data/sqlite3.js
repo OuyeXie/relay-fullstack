@@ -1,5 +1,6 @@
 import sqlite3 from 'sqlite3';
 import deb from 'debug';
+import { promisifyAll } from 'bluebird'
 import conf from '../../config';
 
 const debug = deb('sqlite3');
@@ -34,6 +35,8 @@ export async function promisedAll(sql, param) {
     });
   });
 }
+
+export const promisedDb = promisifyAll(db);
 
 export default db;
 
