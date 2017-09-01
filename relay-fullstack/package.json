@@ -70,6 +70,7 @@
     "css-loader": "^0.25.0",
     "db-migrate": "^0.10.0-beta.23",
     "db-migrate-sqlite3": "^0.2.1",
+    "debug": "^3.0.1",
     "express": "^4.14.0",
     "express-graphql": "^0.5.4",
     "favicons-webpack-plugin": "0.0.7",

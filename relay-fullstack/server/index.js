@@ -6,11 +6,14 @@ import graphQLHTTP from 'express-graphql';
 import WebpackDevServer from 'webpack-dev-server';
 import historyApiFallback from 'connect-history-api-fallback';
 import chalk from 'chalk';
+import debug from 'debug';
 import webpackConfig from '../webpack.config';
 import config from './config/environment';
 import schema from './data/schema';
 
 if (config.env === 'development') {
+  debug.enable('*');
+
   // Launch GraphQL
   const graphql = express();
   graphql.use('/', graphQLHTTP({

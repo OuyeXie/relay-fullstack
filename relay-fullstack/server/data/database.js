@@ -1,4 +1,4 @@
-import {test} from './sqlite3';
+import { promisedAll } from './sqlite3';
 
 class User {
   constructor(id, name, username, website) {
@@ -35,6 +35,7 @@ const features = [
 */
 
 let curFeatures = 9;
+
 function addFeature(name, description, url) {
   const newFeature = new Feature(curFeatures, name, description, url);
   features.push(newFeature);
@@ -44,8 +45,9 @@ function addFeature(name, description, url) {
 }
 
 
-function getUser(id) {
-  test()
+async function getUser(id) {
+  const data = await promisedAll('SELECT * FROM property LIMIT 1');
+  console.log('++++++++++', data);
   return id === lvarayut.id ? lvarayut : null;
 }
 
