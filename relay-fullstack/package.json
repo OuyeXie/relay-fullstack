@@ -38,9 +38,9 @@
   "author": "Varayut Lerdkanlayanawat",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lvarayut/relay-fullstack/issues"
+    "url": "https://github.com/OuyeXie/relay-fullstack/issues"
   },
-  "homepage": "https://github.com/lvarayut/relay-fullstack",
+  "homepage": "https://github.com/OuyeXie/relay-fullstack",
   "devDependencies": {
     "eslint": "^3.8.0",
     "eslint-config-airbnb": "^12.0.0",

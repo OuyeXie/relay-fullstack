@@ -18,7 +18,7 @@ class Feature {
   }
 }
 
-const lvarayut = new User('1', 'Varayut Lerdkanlayanawat', 'lvarayut', 'https://github.com/lvarayut/relay-fullstack');
+const OuyeXie = new User('1', 'Ouye Xie', 'OuyeXie', 'https://github.com/OuyeXie/relay-fullstack');
 const features = [
   new Feature('1', 'React', 'A JavaScript library for building user interfaces.', 'https://facebook.github.io/react'),
   new Feature('2', 'Relay', 'A JavaScript framework for building data-driven react applications.', 'https://facebook.github.io/relay'),
@@ -50,7 +50,7 @@ async function getUser(id) {
   // console.log('++++++++++', data);
   const data1 = await promisedDb.allAsync('SELECT * FROM property LIMIT 1');
   console.log('++++++++++', data1);
-  return id === lvarayut.id ? lvarayut : null;
+  return id === OuyeXie.id ? OuyeXie : null;
 }
 
 function getFeature(id) {
