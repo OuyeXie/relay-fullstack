@@ -6,12 +6,27 @@ config file -> ./database.json
 
 ### Command lines
 
+```
 node_modules/.bin/db-migrate create add-default-table --sql-file --config config.json --env sqlite3
-
 ./node_modules/.bin/db-migrate up --config config.json --env sqlite3
-
 ./node_modules/.bin/db-migrate down --config config.json --env sqlite3
+```
 
+## to run
+
+```
+cd ROOT/relay-fullstack/relay-fullstack
+npm install
+npm start
+```
+
+## to crawl
+
+## release plan / to do list
+
+ - support data from www.zolo.ca
+ - d3 plot
+ - search engine?
 
 # Original Readme from Framework
 <h1 align="center">
