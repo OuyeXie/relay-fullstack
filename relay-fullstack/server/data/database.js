@@ -1,4 +1,4 @@
-import {promisedDb, promisedAll} from './sqlite3';
+import { promisedDb, promisedAll } from './sqlite3';
 
 class User {
   constructor(id, name, username, website) {
