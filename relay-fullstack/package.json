@@ -88,6 +88,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "nconf": "^0.8.4",
+    "node-fetch": "^1.7.2",
     "normalize.css": "^5.0.0",
     "postcss-loader": "^1.0.0",
     "precss": "^1.4.0",

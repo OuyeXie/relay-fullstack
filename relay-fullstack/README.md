@@ -23,7 +23,7 @@ npm start
 ## to crawl
 
 ```
-npm crawl
+npm run crawl
 ```
 
 ## release plan / to do list

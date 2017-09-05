@@ -5,7 +5,7 @@ import { getUser } from '../server/data/database';
 async function updateZolo() {
   console.info('zolo user crawler start')
   try {
-    const u = await zoloCrawler.user();
+    const u = await zoloCrawler.data();
     await getUser(u);
     console.info('zolo user crawler finish');
   } catch (err) {
