@@ -22,6 +22,10 @@ npm start
 
 ## to crawl
 
+```
+npm crawl
+```
+
 ## release plan / to do list
 
  - support data from www.zolo.ca
