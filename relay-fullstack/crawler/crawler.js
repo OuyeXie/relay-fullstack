@@ -1,30 +1,29 @@
-import Crawler from 'crawler'
-import _ from 'lodash'
+import Crawler from 'crawler';
+import _ from 'lodash';
 
 export default class {
   constructor(options) {
-    this.crawler = new Crawler(options)
+    this.crawler = new Crawler(options);
   }
 
   queue(options) {
-    if (_.isString(options)) {
-      options = {uri: options}
-    } else if (!_.isObject(options)) {
-      throw new Error('crawler options should be object')
+    let optionsLocal = options;
+    if (_.isString(optionsLocal)) {
+      optionsLocal = { uri: optionsLocal };
+    } else if (!_.isObject(optionsLocal)) {
+      throw new Error('crawler options should be object');
     }
     return new Promise((resolve, reject) => {
-      options.callback = (err, response, $) => {
+      optionsLocal.callback = (err, response, $) => {
         if (err) {
-          reject(err)
+          reject(err);
+        } else if ($) {
+          resolve({ response, $ });
         } else {
-          if ($) {
-            resolve({response, $})
-          } else {
-            resolve({response})
-          }
+          resolve({ response });
         }
       }
-      this.crawler.queue(options)
-    })
+      this.crawler.queue(optionsLocal);
+    });
   }
 }

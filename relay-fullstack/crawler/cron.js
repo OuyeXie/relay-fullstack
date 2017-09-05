@@ -1,8 +1,6 @@
-import {CronJob} from 'cron'
-import _ from 'lodash'
+import { CronJob } from 'cron';
+import _ from 'lodash';
 
-export default function(cron) {
-  return _.mapValues(cron, setting => {
-    return new CronJob(setting.cronTime, setting.onTick, null, true)
-  })
+export default function (cron) {
+  return _.mapValues(cron, setting => new CronJob(setting.cronTime, setting.onTick, null, true));
 }
