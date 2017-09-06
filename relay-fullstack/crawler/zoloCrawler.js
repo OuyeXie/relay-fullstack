@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import debug from 'debug';
+import cheerio from 'cheerio';
 import Crawler from './crawler';
 
 const RESOURCES = ['https://www.zolo.ca/burnaby-real-estate/9288-university-crescent/408'];
@@ -11,7 +12,7 @@ const crawler = new Crawler({
   retryTimeout: 10000
 });
 
-async function getData(resource) {
+async function crawlData(resource) {
   debug('zolo')('request:', resource)
   const res = await crawler.queue({
     uri: resource,
@@ -33,6 +34,18 @@ async function getData(resource) {
   return _.assign(response, { resource });
 
   // return await getData(resource);
+}
+
+async function parseData(rawData) {
+  const $ = cheerio.load(rawData.text);
+  const sourceLink = $('a').last().attr('href');
+  return { sourceLink };
+}
+
+async function getData(resource) {
+  const rawData = await crawlData(resource);
+  const parsedData = parseData(rawData);
+  return _.assign(parsedData, { resource });
 }
 
 async function data() {
