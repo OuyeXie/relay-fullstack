@@ -61,11 +61,16 @@ function getFeatures() {
   return features;
 }
 
+async function updateData(data) {
+  console.log('++++++++++', data);
+}
+
 export {
   User,
   Feature,
   getUser,
   getFeature,
   getFeatures,
-  addFeature
+  addFeature,
+  updateData
 };

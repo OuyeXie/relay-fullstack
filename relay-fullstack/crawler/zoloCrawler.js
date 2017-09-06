@@ -2,7 +2,7 @@ import _ from 'lodash';
 import debug from 'debug';
 import Crawler from './crawler';
 
-const RESOURCE = ['https://www.zolo.ca/burnaby-real-estate/9288-university-crescent/408'];
+const RESOURCES = ['https://www.zolo.ca/burnaby-real-estate/9288-university-crescent/408'];
 const HOST = 'www.zolo.ca';
 const crawler = new Crawler({
   rateLimits: 200,
@@ -19,14 +19,14 @@ async function getData(resource) {
       Accept: '*/*',
       'Content-Type': 'application/x-www-form-urlencoded',
       Host: HOST,
-      'User-Agent': 'Apache-HttpClient/UNAVAILABLE (java 1.4)'
+      'User-Agent': 'Apache-HttpClient/UNAVAILABLE (java 1.4)',
     },
     jQuery: false
   })
 
   let response;
   try {
-    response = JSON.parse(res.response.body);
+    response = res.response.body;
   } catch (e) {
     debug('zolo')('proxy request error', e);
   }
@@ -36,10 +36,8 @@ async function getData(resource) {
 }
 
 async function data() {
-  const response = await getData(RESOURCE)
-  return {
-    response
-  };
+  const responses = await Promise.all(RESOURCES.map(async resource => await getData(resource)))
+  return responses;
 }
 
 export default { data };

@@ -1,12 +1,12 @@
 import './logger';
 import zoloCrawler from '../crawler/zoloCrawler';
-import { getUser } from '../server/data/database';
+import { updateData } from '../server/data/database';
 
 async function updateZolo() {
   console.info('zolo user crawler start')
   try {
-    const u = await zoloCrawler.data();
-    await getUser(u);
+    const data = await zoloCrawler.data();
+    await updateData(data);
     console.info('zolo user crawler finish');
   } catch (err) {
     console.info('zolo user crawler error:', err);
