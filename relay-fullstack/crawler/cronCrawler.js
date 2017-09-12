@@ -1,11 +1,14 @@
+import debug from 'debug';
 import './logger';
 import zoloCrawler from '../crawler/zoloCrawler';
 import { updateData } from '../server/data/database';
 
-async function updateZolo() {
+debug.enable('*');
+
+async function updateZolo(update = true) {
   console.info('zolo user crawler start')
   try {
-    const data = await zoloCrawler.data();
+    const data = await zoloCrawler.data(update);
     await updateData(data);
     console.info('zolo user crawler finish');
   } catch (err) {

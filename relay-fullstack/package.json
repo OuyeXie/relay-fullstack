@@ -103,6 +103,7 @@
     "sqlite3": "3.1.8",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
+    "urlencode": "^1.1.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2",
     "winston": "^2.3.1"
