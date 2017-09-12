@@ -31,25 +31,29 @@ async function crawlData(resource) {
   } catch (e) {
     debug('zolo')('proxy request error', e);
   }
-  return _.assign(response, { resource });
+  return response;
 
   // return await getData(resource);
 }
 
-async function parseData(rawData) {
-  const $ = cheerio.load(rawData.text);
-  const sourceLink = $('a').last().attr('href');
-  return { sourceLink };
+function parseData(rawData) {
+  const $ = cheerio.load(rawData);
+  const address = $('h1').text();
+  const area = $('div .area').text();
+  return { address, area };
 }
 
 async function getData(resource) {
   const rawData = await crawlData(resource);
+  console.log('+++++++', typeof rawData.response);
   const parsedData = parseData(rawData);
+  console.log('+++++++', parsedData);
   return _.assign(parsedData, { resource });
 }
 
 async function data() {
   const responses = await Promise.all(RESOURCES.map(async resource => await getData(resource)))
+  console.log('+++++++', responses);
   return responses;
 }
 
