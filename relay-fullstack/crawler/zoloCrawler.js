@@ -45,12 +45,18 @@ function parseData(rawData) {
   const $ = cheerio.load(rawData);
   const address = $('h1').text();
   const area = $('div .area').text();
-  const $acc = $('.acc:contains(\'Full Details\')');
-  const $accContent = $('.acc-content', $acc);
+
+  const $keyFacts = $(':contains(\'Key Facts\')');
+  const $keyFactsContainer = $('.column-container', $keyFacts);
+  const $mortgage = $('dl:nth-of-type(1)', $keyFactsContainer);
+  const mortgage = $('.column-value .priv', $mortgage).text();
+
+  const $fullDetails = $(':contains(\'Full Details\')');
+  const $accContent = $('.acc-content', $fullDetails);
   const $property = $('div:nth-of-type(1)', $accContent);
   const $type = $('div:nth-of-type(1)', $property);
   const type = $('.column-value .priv', $type).text();
-  return { address, area, type };
+  return { address, area, mortgage, type };
 }
 
 async function getData(resource, update) {
