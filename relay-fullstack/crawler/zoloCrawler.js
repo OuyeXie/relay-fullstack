@@ -45,7 +45,12 @@ function parseData(rawData) {
   const $ = cheerio.load(rawData);
   const address = $('h1').text();
   const area = $('div .area').text();
-  return { address, area };
+  const $acc = $('.acc:contains(\'Full Details\')');
+  const $accContent = $('.acc-content', $acc);
+  const $property = $('div:nth-of-type(1)', $accContent);
+  const $type = $('div:nth-of-type(1)', $property);
+  const type = $('.column-value .priv', $type).text();
+  return { address, area, type };
 }
 
 async function getData(resource, update) {
@@ -70,6 +75,7 @@ async function getData(resource, update) {
     return null;
   }
   const parsedData = parseData(rawData);
+  debug(parsedData)
   return _.assign(parsedData, { resource });
 }
 
