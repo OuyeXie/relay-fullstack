@@ -16,7 +16,7 @@ async function updateZolo(update = true) {
   }
 }
 
-updateZolo(false);
+updateZolo(true);
 
 // import cron from './cronCrawler';
 // const setting = {

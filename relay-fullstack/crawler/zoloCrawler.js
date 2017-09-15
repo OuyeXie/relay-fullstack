@@ -41,37 +41,94 @@ async function crawlData(resource) {
   // return await getData(resource);
 }
 
+function parseRemovedData(rawData) {
+  const $ = cheerio.load(rawData);
+
+  return { removed: true, last_updated: '2017-01-01' };
+}
+
 function parseData(rawData) {
   const $ = cheerio.load(rawData);
+
+  // address
   const address = $('h1').text();
   const area = $('div .area').text();
 
+  // key_facts: mortgage, walkscore, days_on_market, last_updated, info
   const $keyFacts = $(':contains(\'Key Facts\')');
-  const $keyFactsContainer = $('.column-container', $keyFacts);
-  const $mortgage = $('dl:nth-of-type(1)', $keyFactsContainer);
+  const $keyFactsSectionContainer = $('.section-listing-content', $keyFacts);
+  const $basicsContainer = $('.column-container:nth-of-type(1)', $keyFactsSectionContainer);
+  const $mortgage = $(':contains(\'Mortgage (est)\')', $basicsContainer);
   const mortgage = $('.column-value .priv', $mortgage).text();
 
-  const $fullDetails = $(':contains(\'Full Details\')');
-  const $accContent = $('.acc-content', $fullDetails);
-  const $property = $('div:nth-of-type(1)', $accContent);
+  const $walkscore = $(':contains(\'Walkscore\')', $basicsContainer);
+  const walkscore = $('.column-value', $walkscore).text();
+
+  const $daysOnMarket = $(':contains(\'Days on Market\')', $basicsContainer);
+  const daysOnMarket = $('.column-value .priv', $daysOnMarket).text();
+
+  const $updatesContainer = $('.column-container:nth-of-type(2)', $keyFactsSectionContainer);
+  const $lastUpdated = $(':contains(\'Last Updated\')', $updatesContainer);
+  const lastUpdated = $('.column-value', $lastUpdated).text();
+
+  // details
+  const $details = $(':contains(\'Details\')');
+  const $accContent = $('.acc-content', $details);
+  const $sectionContent = $('.section-listing-content-pad', $accContent);
+
+  // property: type, building_type, ownership, size, year_built
+  const $property = $('div:nth-of-type(1)', $sectionContent);
   const $type = $('div:nth-of-type(1)', $property);
   const type = $('.column-value .priv', $type).text();
-  return { address, area, mortgage, type };
+  return {
+    address,
+    area,
+    mortgage,
+    walkscore,
+    days_on_market: daysOnMarket,
+    last_updated: lastUpdated,
+    type
+  };
+
+  // inside: levels, bedrooms
+  // fees: taxes, strata_fees
+  // land: lot_size_sq_ft
+  // price_history: last_listed_price, last_listed_time
+  // market_status: approximate_area_price
+}
+
+function isRemoved(rawData) {
+  return _.includes(rawData, 'Removed');
 }
 
 async function getData(resource, update) {
+  let parsedData = {};
   let rawData;
   const fileName = DIR_PREFIX + urlencode(resource);
   if (update) {
     rawData = await crawlData(resource);
-    try {
-      fs.writeFileSync(fileName, rawData);
-    } catch (err) {
-      console.error(`Error! Cannot write data into file ${fileName}`);
+    if (isRemoved(rawData)) {
+      try {
+        const oldRawData = fs.readFileSync(fileName);
+        const oldParsedData = parseData(oldRawData);
+        const newparsedData = parseRemovedData(rawData);
+        parsedData = _.assign(oldParsedData, newparsedData);
+      } catch (err) {
+        console.error(`Error! Cannot read data from file ${fileName}`);
+      }
+      console.warn(`Attention! Resource is removed for url ${resource}`);
+    } else {
+      try {
+        fs.writeFileSync(fileName, rawData);
+        parsedData = parseData(rawData);
+      } catch (err) {
+        console.error(`Error! Cannot write data into file ${fileName}`);
+      }
     }
   } else {
     try {
       rawData = fs.readFileSync(fileName);
+      parsedData = parseData(rawData);
     } catch (err) {
       console.error(`Error! Cannot read data from file ${fileName}`);
     }
@@ -80,9 +137,9 @@ async function getData(resource, update) {
     console.warn(`Error! No data can be fetched for url ${resource}`);
     return null;
   }
-  const parsedData = parseData(rawData);
-  debug(parsedData)
-  return _.assign(parsedData, { resource });
+
+  debug(parsedData);
+  return _.assign(parsedData, { url: resource, source: HOST });
 }
 
 async function data(update) {
