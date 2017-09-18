@@ -25,6 +25,9 @@ npm start
 ```
 npm run crawl
 ```
+## time zone
+
+all in utc
 
 ## release plan / to do list
 

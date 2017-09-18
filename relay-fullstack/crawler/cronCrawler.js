@@ -5,7 +5,7 @@ import { updateData } from '../server/data/database';
 
 debug.enable('*');
 
-async function updateZolo(update = true) {
+async function updateZolo(update = false) {
   console.info('zolo user crawler start')
   try {
     const data = await zoloCrawler.data(update);
@@ -16,7 +16,7 @@ async function updateZolo(update = true) {
   }
 }
 
-updateZolo(true);
+updateZolo(false);
 
 // import cron from './cronCrawler';
 // const setting = {
