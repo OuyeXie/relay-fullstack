@@ -34,6 +34,19 @@ all in utc
  - support data from www.zolo.ca
  - d3 plot
  - search engine?
+ 
+## Notes
+  
+  - important values
+    - down payment
+    - mortgage cash flow -> value
+    - income cash flow -> value
+    - residual value -> value
+  - income
+    - V(F) = PV(FCF(T)) + PV(TV(T)) + NOA
+    - PV = (CF1/(1+r1)) + (CF2/(1+r2)^2) + ...
+  - outgoing
+    - 
 
 # Original Readme from Framework
 <h1 align="center">
