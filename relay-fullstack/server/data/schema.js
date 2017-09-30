@@ -25,12 +25,17 @@ import {
 import {
   User,
   Feature,
+  Property,
   getUser,
   getFeature,
   getFeatures,
-  addFeature
+  addFeature,
+  getProperty
 } from './database';
 
+import { calculate, calculateBeforeYear } from './treasure';
+
+import { prop } from '../utils/common';
 
 /**
  * We get the node interface and field from the Relay library.
@@ -45,6 +50,8 @@ const { nodeInterface, nodeField } = nodeDefinitions(
       return getUser(id);
     } else if (type === 'Feature') {
       return getFeature(id);
+    } else if (type === 'Property') {
+      return getProperty(id);
     }
     return null;
   },
@@ -53,6 +60,8 @@ const { nodeInterface, nodeField } = nodeDefinitions(
       return userType;
     } else if (obj instanceof Feature) {
       return featureType;
+    } else if (obj instanceof Property) {
+      return propertyType;
     }
     return null;
   }
@@ -106,10 +115,60 @@ const featureType = new GraphQLObjectType({
   interfaces: [nodeInterface]
 });
 
+const propertyType = new GraphQLObjectType({
+  name: 'Property',
+  description: 'Property',
+  fields: () => ({
+    id: globalIdField('Property'),
+    cashFlow: {
+      type: GraphQLFloat,
+      resolve: prop('cashFlow')
+    },
+    discountRate: {
+      type: GraphQLFloat,
+      resolve: prop('discountRate')
+    },
+    growthRate: {
+      type: GraphQLFloat,
+      resolve: prop('growthRate')
+    },
+    numberOfYears: {
+      type: GraphQLInt,
+      resolve: prop('numberOfYears')
+    },
+    nonOperationAssets: {
+      type: GraphQLFloat,
+      resolve: prop('nonOperationAssets')
+    },
+    presentValue: {
+      type: GraphQLFloat,
+      description: 'Present value of a property',
+      resolve: (d) => {
+        let pv = 0;
+        if (d.numberOfYears && d.numberOfYears > 0) {
+          pv = calculateBeforeYear(d.cashFlow, d.discountRate, d.growthRate, d.numberOfYears, d.nonOperationAssets);
+        } else {
+          pv = calculate(d.cashFlow, d.discountRate, d.growthRate, d.nonOperationAssets);
+        }
+        return pv;
+      }
+    },
+  }),
+  interfaces: [nodeInterface]
+});
+
 /**
  * Define your own connection types here
  */
-const { connectionType: featureConnection, edgeType: featureEdge } = connectionDefinitions({ name: 'Feature', nodeType: featureType });
+const { connectionType: featureConnection, edgeType: featureEdge } = connectionDefinitions({
+  name: 'Feature',
+  nodeType: featureType
+});
+
+const { connectionType: propertyConnection, edgeType: propertyEdge } = connectionDefinitions({
+  name: 'Property',
+  nodeType: propertyType
+});
 
 /**
  * Create feature example
@@ -153,6 +212,15 @@ const queryType = new GraphQLObjectType({
     viewer: {
       type: userType,
       resolve: () => getUser('1')
+    },
+    property: {
+      type: propertyType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      resolve: async (root, { id }, context, info) => getProperty(id)
     }
   })
 });

@@ -18,6 +18,17 @@ class Feature {
   }
 }
 
+class Property {
+  constructor(id, cashFlow, discountRate, growthRate, numberOfYears, nonOperationAssets) {
+    this.id = id;
+    this.cashFlow = cashFlow;
+    this.discountRate = discountRate;
+    this.growthRate = growthRate;
+    this.numberOfYears = numberOfYears;
+    this.nonOperationAssets = nonOperationAssets;
+  }
+}
+
 const OuyeXie = new User('1', 'Ouye Xie', 'OuyeXie', 'https://github.com/OuyeXie/relay-fullstack');
 const features = [
   new Feature('1', 'React', 'A JavaScript library for building user interfaces.', 'https://facebook.github.io/react'),
@@ -28,6 +39,10 @@ const features = [
   new Feature('6', 'Babel', 'Babel is a JavaScript compiler. Use next generation JavaScript, today.', 'https://babeljs.io'),
   new Feature('7', 'PostCSS', 'PostCSS. A tool for transforming CSS with JavaScript.', 'http://postcss.org'),
   new Feature('8', 'MDL', 'Material Design Lite lets you add a Material Design to your websites.', 'http://www.getmdl.io')
+];
+
+const properties = [
+  new Property('1', 3000.0, 0.14, 0.07, 90, 0.0),
 ];
 
 /*
@@ -61,6 +76,10 @@ function getFeatures() {
   return features;
 }
 
+function getProperty(id) {
+  return properties.find(w => w.id === id);
+}
+
 async function updateData(data) {
   console.log('++++++++++', data);
 }
@@ -68,9 +87,11 @@ async function updateData(data) {
 export {
   User,
   Feature,
+  Property,
   getUser,
   getFeature,
   getFeatures,
   addFeature,
-  updateData
+  updateData,
+  getProperty
 };

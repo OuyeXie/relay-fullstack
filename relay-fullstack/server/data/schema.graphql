@@ -69,6 +69,20 @@ type PageInfo {
   endCursor: String
 }
 
+# Property
+type Property implements Node {
+  # The ID of an object
+  id: ID!
+  cashFlow: Float
+  discountRate: Float
+  growthRate: Float
+  numberOfYears: Int
+  nonOperationAssets: Float
+
+  # Present value of a property
+  presentValue: Float
+}
+
 type Query {
   # Fetches an object given its ID
   node(
@@ -76,6 +90,7 @@ type Query {
     id: ID!
   ): Node
   viewer: User
+  property(id: String!): Property
 }
 
 # A person who uses our app

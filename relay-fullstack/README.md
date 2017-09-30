@@ -45,8 +45,14 @@ all in utc
   - income
     - V(F) = PV(FCF(T)) + PV(TV(T)) + NOA
     - PV = (CF1/(1+r1)) + (CF2/(1+r2)^2) + ...
+    - PV = CF1/(r-g)
+    - PV = CF0 * (1+g)/(r-g)
   - outgoing
-    - 
+    - tax, strata, maintenance, incoming tax
+      - 房屋折旧、家电维修费、管理费等花销可用于出租房租金收入抵税。
+    - rent deduction
+  - method
+    - 乐观估计、保守估计和最可能估计
 
 # Original Readme from Framework
 <h1 align="center">
