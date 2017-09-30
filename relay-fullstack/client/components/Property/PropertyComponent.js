@@ -21,7 +21,7 @@ export default class App extends React.Component {
           <img src={yeoman} alt='yeoman' />
         </div>
         <div className={styles.content}>
-          {this.props.property}
+          {this.props.property.presentValue}
         </div>
       </div>
     );
