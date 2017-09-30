@@ -42,7 +42,7 @@ const features = [
 ];
 
 const properties = [
-  new Property('1', 3000.0 * 12, 0.14, 0.07, 90, 0.0),
+  new Property('1', 3000.0 * 12, 0.05, 0.03, 30, 0.0),
 ];
 
 /*
