@@ -5,6 +5,9 @@ import { updateData } from '../server/data/database';
 
 debug.enable('*');
 
+/**
+ * @param update, true if want to crawl from real time website and update the resource files
+ */
 async function updateZolo(update = false) {
   console.info('zolo user crawler start')
   try {
@@ -16,7 +19,7 @@ async function updateZolo(update = false) {
   }
 }
 
-updateZolo(true);
+updateZolo(false);
 
 // import cron from './cronCrawler';
 // const setting = {

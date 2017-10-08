@@ -25,6 +25,15 @@ npm start
 ```
 npm run crawl
 ```
+
+## sql
+
+```
+sqlite3 resource/analyzer.sqlite3 
+.help
+.tables
+```
+
 ## time zone
 
 all in utc

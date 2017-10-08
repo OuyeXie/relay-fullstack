@@ -171,7 +171,7 @@ function isRemoved(rawData) {
 function formatData(parsedData) {
   try {
     const formattedData = {
-      last_listed_time: moment.utc(parsedData.last_listed_time.trim(), 'MM-DD-YYYY'),
+      last_listed_time: moment.utc(parsedData.last_listed_time.trim(), 'MM-DD-YYYY').format(),
       mortgage: parseFloat(parsedData.mortgage.replace(/[^0-9.]/gi, '')),
       last_listed_price: parseFloat(parsedData.last_listed_price.replace(/[^0-9.]/gi, '')),
       approximate_area_price: parseFloat(parsedData.approximate_area_price.replace(/[^0-9.]/gi, '')),

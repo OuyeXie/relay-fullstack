@@ -10,7 +10,7 @@ CREATE TABLE property ( id INTEGER PRIMARY KEY ASC,
                         last_updated_time TEXT,
                         mortgage DOUBLE,
                         taxes DOUBLE,
-                        strda_fees DOUBLE,
+                        strata_fees DOUBLE,
                         year_built INTEGER,
                         levels INTEGER,
                         bedrooms INTEGER,
@@ -31,5 +31,5 @@ CREATE TABLE property ( id INTEGER PRIMARY KEY ASC,
                         country TEXT,
                         liked BOOLEAN DEFAULT FALSE,
                         removed BOOLEAN DEFAULT FALSE);
-CREATE INDEX property_last_asked_price ON property(last_asked_price);
-CREATE INDEX UNIQUE property_url ON property(url);
+CREATE INDEX property_last_listed_price ON property(last_listed_price);
+CREATE UNIQUE INDEX property_url ON property(url);

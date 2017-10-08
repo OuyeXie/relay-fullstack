@@ -4,7 +4,7 @@ import { promisifyAll } from 'bluebird'
 import conf from '../../config';
 
 const debug = deb('sqlite3');
-const db = new sqlite3.Database(conf.sqlite3.filename);
+export const db = new sqlite3.Database(conf.sqlite3.filename);
 
 export function testInsert() {
   db.serialize(() => {
