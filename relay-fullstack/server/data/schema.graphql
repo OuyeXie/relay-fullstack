@@ -110,6 +110,24 @@ type Property implements Node {
   presentValue: Float
 }
 
+# A connection to a list of items.
+type PropertyConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [PropertyEdge]
+}
+
+# An edge in a connection.
+type PropertyEdge {
+  # The item at the end of the edge
+  node: Property
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 type Query {
   # Fetches an object given its ID
   node(
@@ -127,6 +145,9 @@ type User implements Node {
 
   # Features that I have
   features(after: String, first: Int, before: String, last: Int): FeatureConnection
+
+  # Properties
+  properties(after: String, first: Int, before: String, last: Int): PropertyConnection
 
   # Users's username
   username: String

@@ -30,7 +30,8 @@ import {
   getFeature,
   getFeatures,
   addFeature,
-  getProperty
+  getProperty,
+  getProperties
 } from './database';
 
 import { calculate, calculateBeforeYear } from './treasure';
@@ -81,6 +82,12 @@ const userType = new GraphQLObjectType({
       description: 'Features that I have',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(getFeatures(), args)
+    },
+    properties: {
+      type: propertyConnection,
+      description: 'Properties',
+      args: connectionArgs,
+      resolve: async (_, args) => connectionFromArray(await getProperties(), args)
     },
     username: {
       type: GraphQLString,
@@ -328,7 +335,7 @@ const queryType = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString)
         }
       },
-      resolve: async (root, { id }, context, info) => getProperty(id)
+      resolve: async (root, { id }, context, info) => getProperty(fromGlobalId(id).id)
     }
   })
 });
