@@ -50,6 +50,7 @@ all in utc
     - only for: https://www.zolo.ca/burnaby-real-estate/9288-university-crescent/408'
  - removed: true
     - node-sqlite3 boolean support
+ - update treasure equation
  - paging on properties
  - transaction
  
