@@ -16,7 +16,9 @@ export default class App extends React.Component {
           <h1 className={styles.sawasdee}>???Is Past Prologue???</h1>
         </div>
         <div className={styles.content}>
-          {this.props.property.presentValue}
+          <div>{this.props.property.presentValue}</div>
+          <div>{this.props.property.url}</div>
+          <div>{this.props.property.lastListedPrice}</div>
         </div>
       </div>
     );

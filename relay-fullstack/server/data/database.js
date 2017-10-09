@@ -1,6 +1,9 @@
 import moment from 'moment';
+import _ from 'lodash';
 
 import { promisedDb, promisedAll, db } from './sqlite3';
+import { getMarketRate } from './treasure';
+import { underscoreToCamel } from '../utils/common';
 
 class User {
   constructor(id, name, username, website) {
@@ -20,16 +23,6 @@ class Feature {
   }
 }
 
-class Property {
-  constructor(id, cashFlow, discountRate, growthRate, numberOfYears, nonOperationAssets) {
-    this.id = id;
-    this.cashFlow = cashFlow;
-    this.discountRate = discountRate;
-    this.growthRate = growthRate;
-    this.numberOfYears = numberOfYears;
-    this.nonOperationAssets = nonOperationAssets;
-  }
-}
 
 const OuyeXie = new User('1', 'Ouye Xie', 'OuyeXie', 'https://github.com/OuyeXie/relay-fullstack');
 const features = [
@@ -41,10 +34,6 @@ const features = [
   new Feature('6', 'Babel', 'Babel is a JavaScript compiler. Use next generation JavaScript, today.', 'https://babeljs.io'),
   new Feature('7', 'PostCSS', 'PostCSS. A tool for transforming CSS with JavaScript.', 'http://postcss.org'),
   new Feature('8', 'MDL', 'Material Design Lite lets you add a Material Design to your websites.', 'http://www.getmdl.io')
-];
-
-const properties = [
-  new Property('1', 3000.0 * 12, 0.05, 0.03, 30, 0.0),
 ];
 
 /*
@@ -65,8 +54,8 @@ function addFeature(name, description, url) {
 async function getUser(id) {
   // const data = await promisedAll('SELECT * FROM property LIMIT 1');
   // console.log('++++++++++', data);
-  const data1 = await promisedDb.allAsync('SELECT * FROM property LIMIT 1');
-  console.log('++++++++++', data1);
+  // const data1 = await promisedDb.allAsync('SELECT * FROM property LIMIT 1');
+  // console.log('++++++++++', data1);
   return id === OuyeXie.id ? OuyeXie : null;
 }
 
@@ -78,40 +67,13 @@ function getFeatures() {
   return features;
 }
 
-function getProperty(id) {
-  return properties.find(w => w.id === id);
+async function getProperty(id) {
+  const data = await promisedDb.getAsync('SELECT * FROM property WHERE id = $id', { $id: id });
+  const property =  _.assign(getMarketRate(), underscoreToCamel(data));
+  console.log('++++++++++', property);
+  return property;
 }
 
-/*
-  last_listed_price DOUBLE,
-  appoximate_area_price DOUBLE,
-  residual_value DOUBLE DEFAULT 0,
-  last_listed_time TIMESTAMP,
-  last_updated_time TEXT,
-  mortgage DOUBLE,
-  taxes DOUBLE,
-  strata_fees DOUBLE,
-  year_built INTEGER,
-  levels INTEGER,
-  bedrooms INTEGER,
-  size DOUBLE,
-  lot_size_sq_ft DOUBLE,
-  walkscore DOUBLE,
-  days_on_market INTEGER,
-  type TEXT,
-  building_type TEXT,
-  ownership TEXT,
-  mls TEXT,
-  address TEXT,
-  info TEXT,
-  view TEXT,
-  url TEXT,
-  source TEXT,
-  currency TEXT,
-  country TEXT,
-  liked BOOLEAN DEFAULT FALSE,
-  removed BOOLEAN DEFAULT FALSE);
- */
 async function updateData(data) {
   // TODO: implement transaction
   const now = moment.utc().format();
@@ -250,7 +212,6 @@ async function updateData(data) {
 export {
   User,
   Feature,
-  Property,
   getUser,
   getFeature,
   getFeatures,

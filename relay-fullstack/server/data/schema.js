@@ -44,14 +44,14 @@ import { prop } from '../utils/common';
  * The second defines the way we resolve an object to its GraphQL type.
  */
 const { nodeInterface, nodeField } = nodeDefinitions(
-  (globalId) => {
+  async (globalId) => {
     const { type, id } = fromGlobalId(globalId);
     if (type === 'User') {
       return getUser(id);
     } else if (type === 'Feature') {
       return getFeature(id);
     } else if (type === 'Property') {
-      return getProperty(id);
+      return await getProperty(id);
     }
     return null;
   },
@@ -120,6 +120,114 @@ const propertyType = new GraphQLObjectType({
   description: 'Property',
   fields: () => ({
     id: globalIdField('Property'),
+    lastListedPrice: {
+      type: GraphQLFloat,
+      resolve: prop('lastListedPrice')
+    },
+    residualValue: {
+      type: GraphQLFloat,
+      resolve: prop('residualValue')
+    },
+    lastListedTime: {
+      type: GraphQLString,
+      resolve: prop('lastListedTime')
+    },
+    lastUpdatedTime: {
+      type: GraphQLString,
+      resolve: prop('lastUpdatedTime')
+    },
+    mortgage: {
+      type: GraphQLFloat,
+      resolve: prop('mortgage')
+    },
+    taxes: {
+      type: GraphQLFloat,
+      resolve: prop('taxes')
+    },
+    strataFees: {
+      type: GraphQLFloat,
+      resolve: prop('strataFees')
+    },
+    yearBuilt: {
+      type: GraphQLInt,
+      resolve: prop('yearBuilt')
+    },
+    levels: {
+      type: GraphQLInt,
+      resolve: prop('levels')
+    },
+    bedrooms: {
+      type: GraphQLInt,
+      resolve: prop('bedrooms')
+    },
+    size: {
+      type: GraphQLFloat,
+      resolve: prop('size')
+    },
+    lotSizeSqFt: {
+      type: GraphQLFloat,
+      resolve: prop('lotSizeSqFt')
+    },
+    walkscore: {
+      type: GraphQLFloat,
+      resolve: prop('walkscore')
+    },
+    daysOnMarket: {
+      type: GraphQLInt,
+      resolve: prop('daysOnMarket')
+    },
+    type: {
+      type: GraphQLString,
+      resolve: prop('type')
+    },
+    buildingType: {
+      type: GraphQLString,
+      resolve: prop('buildingType')
+    },
+    ownership: {
+      type: GraphQLString,
+      resolve: prop('ownership')
+    },
+    mls: {
+      type: GraphQLString,
+      resolve: prop('mls')
+    },
+    address: {
+      type: GraphQLString,
+      resolve: prop('address')
+    },
+    info: {
+      type: GraphQLString,
+      resolve: prop('info')
+    },
+    view: {
+      type: GraphQLString,
+      resolve: prop('view')
+    },
+    url: {
+      type: GraphQLString,
+      resolve: prop('url')
+    },
+    source: {
+      type: GraphQLString,
+      resolve: prop('source')
+    },
+    currency: {
+      type: GraphQLString,
+      resolve: prop('currency')
+    },
+    country: {
+      type: GraphQLString,
+      resolve: prop('country')
+    },
+    liked: {
+      type: GraphQLBoolean,
+      resolve: prop('liked')
+    },
+    removed: {
+      type: GraphQLBoolean,
+      resolve: prop('removed')
+    },
     cashFlow: {
       type: GraphQLFloat,
       resolve: prop('cashFlow')

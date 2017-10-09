@@ -73,6 +73,33 @@ type PageInfo {
 type Property implements Node {
   # The ID of an object
   id: ID!
+  lastListedPrice: Float
+  residualValue: Float
+  lastListedTime: String
+  lastUpdatedTime: String
+  mortgage: Float
+  taxes: Float
+  strataFees: Float
+  yearBuilt: Int
+  levels: Int
+  bedrooms: Int
+  size: Float
+  lotSizeSqFt: Float
+  walkscore: Float
+  daysOnMarket: Int
+  type: String
+  buildingType: String
+  ownership: String
+  mls: String
+  address: String
+  info: String
+  view: String
+  url: String
+  source: String
+  currency: String
+  country: String
+  liked: Boolean
+  removed: Boolean
   cashFlow: Float
   discountRate: Float
   growthRate: Float

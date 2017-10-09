@@ -36,4 +36,14 @@ export function calculate(cashFlow, discountRate, growthRate, nonOperationAssets
   return presentValueBeforeEndYear;
 }
 
+export function getMarketRate() {
+  return {
+    cashFlow: 3000.0 * 12,
+    discountRate: 0.05,
+    growthRate: 0.03,
+    numberOfYears: 30,
+    nonOperationAssets: 0.0
+  };
+}
+
 export default {};

@@ -43,6 +43,14 @@ all in utc
  - support data from www.zolo.ca
  - d3 plot
  - search engine?
+
+### Issues
+ 
+ - last_listed_time: 'Invalid date'
+    - only for: https://www.zolo.ca/burnaby-real-estate/9288-university-crescent/408'
+ - removed: true
+    - node-sqlite3 boolean support
+ - transaction
  
 ## Notes
   

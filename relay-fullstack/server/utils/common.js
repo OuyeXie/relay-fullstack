@@ -1,4 +1,5 @@
 import debug from 'debug';
+import _ from 'lodash';
 
 export function prop(key, log = false) {
   return (object) => {
@@ -9,4 +10,10 @@ export function prop(key, log = false) {
   };
 }
 
-export default { prop };
+export function underscoreToCamel(res) {
+  const camelRes = _.mapKeys(res, (v, k) => _.camelCase(k))
+  _.assign(res, camelRes);
+  return res;
+}
+
+export default { prop, underscoreToCamel };
