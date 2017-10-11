@@ -3,7 +3,9 @@ import deb from 'debug';
 const debug = deb('treasure');
 
 function getCoefficient(discountRate, growthRate, totalNumberOfYears) {
-  return (Math.pow(1 + discountRate, 1 + totalNumberOfYears) - Math.pow(1 + growthRate, 1 + totalNumberOfYears) ) / (Math.pow(1 + discountRate, 1 + totalNumberOfYears) * (discountRate - growthRate));
+  return (1 + growthRate) *
+    ((Math.pow(1 + discountRate, 1 + totalNumberOfYears) - Math.pow(1 + growthRate, 1 + totalNumberOfYears)) /
+      (Math.pow(1 + discountRate, 1 + totalNumberOfYears) * (discountRate - growthRate)));
 }
 
 /*
