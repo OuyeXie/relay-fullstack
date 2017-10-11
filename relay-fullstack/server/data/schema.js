@@ -261,9 +261,9 @@ const propertyType = new GraphQLObjectType({
       resolve: (d) => {
         let pv = 0;
         if (d.numberOfYears && d.numberOfYears > 0) {
-          pv = calculateBeforeYear(d.cashFlow, d.discountRate, d.growthRate, d.numberOfYears, d.nonOperationAssets);
+          pv = calculateBeforeYear(d.cashFlow, d.discountRate, d.growthRate, d.nonOperationAssets, d.totalNumberOfYears, d.numberOfYears);
         } else {
-          pv = calculate(d.cashFlow, d.discountRate, d.growthRate, d.nonOperationAssets);
+          pv = calculate(d.cashFlow, d.discountRate, d.growthRate, d.nonOperationAssets, d.totalNumberOfYears);
         }
         return pv;
       }
