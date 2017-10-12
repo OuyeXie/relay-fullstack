@@ -46,6 +46,7 @@ type FeatureEdge {
 
 type Mutation {
   addFeature(input: AddFeatureInput!): AddFeaturePayload
+  updateParameter(input: UpdateParameterInput!): UpdateParameterPayload
 }
 
 # An object with an ID
@@ -136,6 +137,17 @@ type Query {
   ): Node
   viewer: User
   property(id: String!): Property
+}
+
+input UpdateParameterInput {
+  propertyId: ID!
+  discountRate: Float!
+  clientMutationId: String
+}
+
+type UpdateParameterPayload {
+  property: Property
+  clientMutationId: String
 }
 
 # A person who uses our app

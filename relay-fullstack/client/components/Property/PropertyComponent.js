@@ -2,6 +2,7 @@ import React from 'react';
 import 'normalize.css/normalize.css';
 import 'react-mdl/extra/css/material.cyan-red.min.css';
 import styles from './Property.scss';
+import UpdateParameterComponent from './UpdateParameterComponent';
 
 export default class App extends React.Component {
   static propTypes = {
@@ -20,6 +21,7 @@ export default class App extends React.Component {
           <div>{this.props.property.url}</div>
           <div>{this.props.property.lastListedPrice}</div>
         </div>
+        <UpdateParameterComponent property={this.props.property} />
       </div>
     );
   }

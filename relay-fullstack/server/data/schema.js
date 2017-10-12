@@ -36,7 +36,7 @@ import {
 
 import { calculate, calculateBeforeYear } from './treasure';
 
-import { prop } from '../utils/common';
+import { prop, wrappedFromGlobalId } from '../utils/common';
 
 /**
  * We get the node interface and field from the Relay library.
@@ -314,6 +314,28 @@ const addFeatureMutation = mutationWithClientMutationId({
   mutateAndGetPayload: ({ name, description, url }) => addFeature(name, description, url)
 });
 
+const updateParameterMutation = mutationWithClientMutationId({
+  name: 'UpdateParameter',
+  inputFields: {
+    propertyId: { type: new GraphQLNonNull(GraphQLID) },
+    discountRate: { type: new GraphQLNonNull(GraphQLFloat) }
+  },
+
+  outputFields: {
+    property: {
+      type: propertyType,
+      resolve: async ({ propertyId, discountRate }) => getProperty(propertyId, { discountRate })
+    }
+  },
+
+  mutateAndGetPayload: ({ propertyId, discountRate }) => {
+    return {
+      propertyId: fromGlobalId(propertyId).id,
+      discountRate
+    };
+  }
+});
+
 
 /**
  * This is the type that will be the root of our query,
@@ -347,8 +369,8 @@ const queryType = new GraphQLObjectType({
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    addFeature: addFeatureMutation
-    // Add your own mutations here
+    addFeature: addFeatureMutation,
+    updateParameter: updateParameterMutation
   })
 });
 

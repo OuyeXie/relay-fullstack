@@ -1,5 +1,6 @@
 import Relay from 'react-relay';
 import Property from './PropertyComponent';
+import UpdateParameterMutation from './UpdateParameterMutation';
 
 export default Relay.createContainer(Property, {
   fragments: {
@@ -39,6 +40,7 @@ export default Relay.createContainer(Property, {
         numberOfYears
         nonOperationAssets
         presentValue
+        ${UpdateParameterMutation.getFragment('property')}
       }`
   }
 });

@@ -67,9 +67,10 @@ function getFeatures() {
   return features;
 }
 
-async function getProperty(id) {
-  const data = await promisedDb.getAsync('SELECT * FROM property WHERE id = $id', { $id: id });
-  const property =  _.assign(getMarketRate(), underscoreToCamel(data));
+async function getProperty(id, parameters = {}) {
+  let property = await promisedDb.getAsync('SELECT * FROM property WHERE id = $id', { $id: id });
+  property = _.assign(getMarketRate(), underscoreToCamel(property));
+  property = _.assign(property, parameters);
   return property;
 }
 

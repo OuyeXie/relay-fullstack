@@ -53,6 +53,9 @@ all in utc
  - update treasure equation
  - paging on properties
  - transaction
+ - CSS
+ - clean up old generated code
+ - mutation warning
  
 ## Notes
   

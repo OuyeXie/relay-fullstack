@@ -63,7 +63,7 @@ export function getMarketRate() {
     discountRate: 0.05,
     growthRate: 0.03,
     nonOperationAssets: 0.0,
-    totalNumberOfYears: 10000,
+    totalNumberOfYears: 1000,
     numberOfYears: 30,
   };
 }
